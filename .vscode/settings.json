@@ -1,0 +1,33 @@
+{
+  // Visual Studio Code
+  "editor.tabSize": 2,
+
+  // TypeScript Import Sorter
+  "importSorter.generalConfiguration.sortOnBeforeSave": true,
+  "importSorter.sortConfiguration.removeUnusedImports": true,
+  "importSorter.sortConfiguration.removeUnusedDefaultImports": true,
+  "importSorter.importStringConfiguration.tabSize": 2,
+  "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 140,
+  "importSorter.importStringConfiguration.trailingComma": "multiLine",
+  "importSorter.sortConfiguration.customOrderingRules.defaultOrderLevel": 50,
+  "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "newLineEachExpressionAfterCountLimit",
+  "importSorter.importStringConfiguration.numberOfEmptyLinesAfterAllImports": 2,
+  "importSorter.sortConfiguration.customOrderingRules.rules": [
+    {
+      "regex": "^@angular",
+      "orderLevel": 10
+    },
+    {
+      "regex": "^(rxjs|[@]?ng|@agm|angulartics|big\\.js|uuid)",
+      "orderLevel": 20
+    },
+    {
+      "regex": "^@",
+      "orderLevel": 40
+    },
+    {
+      "regex": "^\\.",
+      "orderLevel": 60
+    }
+  ]
+}

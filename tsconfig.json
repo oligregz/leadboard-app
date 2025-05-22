@@ -3,6 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
@@ -16,7 +17,96 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022"
+    "module": "ES2022",
+    "paths": {
+      "@core": [
+        "src/app/core"
+      ],
+      "@core/*": [
+        "src/app/core/*"
+      ],
+      "@directives": [
+        "src/app/core/directives"
+      ],
+      "@directives/*": [
+        "src/app/core/directives/*"
+      ],
+      "@endpoints": [
+        "src/app/core/endpoints"
+      ],
+      "@endpoints/*": [
+        "src/app/core/endpoints/*"
+      ],
+      "@environment": [
+        "src/environments/environment"
+      ],
+      "@guard": [
+        "src/app/core/guards"
+      ],
+      "@guard/*": [
+        "src/app/core/guards/*"
+      ],
+      "@interceptors": [
+        "src/app/core/interceptors"
+      ],
+      "@interceptors/*": [
+        "src/app/core/interceptors/*"
+      ],
+      "@models": [
+        "src/app/core/models"
+      ],
+      "@models/*": [
+        "src/app/core/models/*"
+      ],
+      "@pages": [
+        "src/app/pages"
+      ],
+      "@pages/*": [
+        "src/app/pages/*"
+      ],
+      "@pipes": [
+        "src/app/shared/pipes"
+      ],
+      "@pipes/*": [
+        "src/app/shared/pipes/*"
+      ],
+      "@resolvers": [
+        "src/app/core/resolvers"
+      ],
+      "@resolvers/*": [
+        "src/app/core/resolvers/*"
+      ],
+      "@services": [
+        "src/app/core/services"
+      ],
+      "@services/*": [
+        "src/app/core/services/*"
+      ],
+      "@shared": [
+        "src/app/shared"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ],
+      "@stores": [
+        "src/app/core/stores"
+      ],
+      "@stores/*": [
+        "src/app/core/stores/*"
+      ],
+      "@utils": [
+        "src/app/core/utils"
+      ],
+      "@utils/*": [
+        "src/app/core/utils/*"
+      ],
+      "@validators": [
+        "src/app/core/validators"
+      ],
+      "@validators/*": [
+        "src/app/core/validators/*"
+      ]
+    },
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
