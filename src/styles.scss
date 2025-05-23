@@ -1,4 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
-@use 'bootstrap/scss/bootstrap';
+@use "bootstrap/scss/bootstrap";
+
+@use "sass/style.scss";
+
+@use "sass/variables/color";
+
+body {
+  margin: 0;
+
+  background-color: color.$bg-primary;
+  color: color.$primary;
+
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}

@@ -1,0 +1,21 @@
+<div class="form-group">
+  <div>
+    {{ inputConfig().inputCommon.label }}
+  </div>
+  <input
+    class="form-control"
+    [id]="inputConfig().inputCommon.id"
+    [type]="inputConfig().config.type"
+    [formControl]="control()"
+  />
+  <label [for]="inputConfig().inputCommon.id" class="form-control-placeholder">
+    {{ inputConfig().inputCommon.hint }}
+  </label>
+</div>
+
+<app-input-error-message
+  [control]="control()"
+  [validators]="inputConfig().validators"
+  [prioritize]="inputConfig().prioritize"
+>
+</app-input-error-message>

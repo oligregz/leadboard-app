@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+
 import { AppComponent } from './app.component';
+
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -15,11 +17,11 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should have the \'leadboard-app\' title', () => {
+  it('should have the \'leaderboard-app\' title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
 
-    expect(app.title).toEqual('leadboard-app');
+    expect(app.title).toEqual('leaderboard-app');
   });
 
   it('should render title', () => {
@@ -28,6 +30,6 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, leadboard-app');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, leaderboard-app');
   });
 });
