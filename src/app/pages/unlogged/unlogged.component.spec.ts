@@ -8,9 +8,9 @@ describe('UnloggedComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UnloggedComponent]
+      imports: [UnloggedComponent],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(UnloggedComponent);
     component = fixture.componentInstance;
