@@ -1,7 +1,11 @@
 <div class="d-flex flex-column align-items-center">
   <div class="login-container">
     <h1>Leaderboard</h1>
-    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <form
+      class="login-form p-5 rounded-4"
+      [formGroup]="loginForm"
+      (ngSubmit)="submit()"
+    >
       <app-input-text
         [inputConfig]="inputConfigs[0]"
         [control]="loginForm.controls.email"
@@ -12,7 +16,7 @@
         [control]="loginForm.controls.password"
       ></app-input-text>
 
-      <button type="submit">Login</button>
+      <button class="btn btn-primary w-100 mt-5" type="submit">Login</button>
     </form>
   </div>
 </div>

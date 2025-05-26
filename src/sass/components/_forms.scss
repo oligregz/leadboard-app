@@ -1,0 +1,62 @@
+@use "../variables/color";
+
+.form-group {
+  position: relative;
+  padding-top: 0;
+  margin-bottom: 0;
+  min-height: 80px;
+  border-radius: 8px;
+}
+
+.form-control {
+  height: 48px;
+  padding: 12px 48px 12px 16px;
+  border: 0;
+  color: color.$white !important;
+  background-color: transparent;
+  box-shadow: 0 0 0 1px color.$grey-02;
+
+  &.ng-invalid.ng-touched,
+  .dirty-validation {
+    &:not(.dirty-validation-none) {
+      box-shadow: 0 0 0 1px color.$red;
+    }
+  }
+}
+
+.form-control:disabled {
+  background-color: color.$grey-05 !important;
+  box-shadow: 0 0 0 1px color.$grey-02 !important;
+}
+
+.form-control:focus {
+  background-color: transparent;
+  box-shadow: 0 0 0 1px color.$grey-02;
+}
+
+.form-control-placeholder {
+  position: absolute;
+  left: 0px;
+  top: 30%;
+  padding: 12px 16px;
+  pointer-events: none;
+  color: color.$grey-01;
+}
+
+.form-control-password {
+  position: absolute;
+  cursor: pointer;
+  right: 12px;
+  top: 40%;
+  padding: 12px 12px 12px 16px;
+  color: color.$grey-01;
+}
+
+.form-control:focus + .form-control-placeholder,
+.form-control.hasValue + .form-control-placeholder {
+  display: none;
+}
+
+.form-control-error-box {
+  height: 24px;
+}
