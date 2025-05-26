@@ -1,4 +1,11 @@
+@use "../../../sass/components/button";
+@use "../../../sass/variables/color";
+
 .login-container {
   height: 400px;
-  margin-top: 160px;
+  margin-top: 120px;
+}
+
+.login-form {
+  background-color: rgba(color.$primary, 0.1);
 }
