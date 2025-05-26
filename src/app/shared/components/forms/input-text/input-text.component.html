@@ -2,12 +2,45 @@
   <div>
     {{ inputConfig().inputCommon.label }}
   </div>
+
+  @if (inputConfig().config.type === 'password') {
+  <div class="position-relative">
+    <input
+      class="form-control pe-5"
+      [id]="inputConfig().inputCommon.id"
+      [type]="showPassword() ? 'text' : 'password'"
+      [formControl]="control()"
+    />
+    <button
+      class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0 bg-transparent pb-1"
+      type="button"
+      (mousedown)="togglePasswordVisibility(true)"
+      (mouseup)="togglePasswordVisibility(false)"
+      (mouseleave)="togglePasswordVisibility(false)"
+      (touchstart)="togglePasswordVisibility(true)"
+      (touchend)="togglePasswordVisibility(false)"
+    >
+      <img
+        class="eye-toggle-img"
+        draggable="false"
+        [src]="
+          showPassword()
+            ? 'password-eye/eye-hide-password.svg'
+            : 'password-eye/eye-show-password.svg'
+        "
+        alt="Mostrar/Esconder senha"
+      />
+    </button>
+  </div>
+  } @else {
+
   <input
     class="form-control"
     [id]="inputConfig().inputCommon.id"
     [type]="inputConfig().config.type"
     [formControl]="control()"
   />
+  }
   <label [for]="inputConfig().inputCommon.id" class="form-control-placeholder">
     {{ inputConfig().inputCommon.hint }}
   </label>
