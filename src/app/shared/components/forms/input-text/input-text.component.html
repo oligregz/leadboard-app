@@ -7,6 +7,8 @@
     [id]="inputConfig().inputCommon.id"
     [type]="inputConfig().config.type"
     [formControl]="control()"
+    [attr.maxlength]="inputConfig().config.maxLength ?? null"
+    [attr.minlength]="inputConfig().config.minLength ?? null"
   />
   <label [for]="inputConfig().inputCommon.id" class="form-control-placeholder">
     {{ inputConfig().inputCommon.hint }}
