@@ -1,3 +1,24 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { UnloggedComponent } from '@pages/unlogged/unlogged.component';
+
+
+export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full',
+  },
+  {
+    path: 'login',
+    component: UnloggedComponent,
+    children: [
+      {
+        path: '',
+        title: 'Login',
+        loadComponent: async () =>
+          import('./pages/login/login.component').then((c) => c.LoginComponent),
+      },
+    ],
+  },
+];

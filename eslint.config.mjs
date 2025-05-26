@@ -3,10 +3,10 @@ import eslint from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-import importPlugin from 'eslint-plugin-import';
+import importPlugin from "eslint-plugin-import";
 import jasminePlugin from "eslint-plugin-jasmine";
 import tsdocPlugin from "eslint-plugin-tsdoc";
-import unicornPlugin from 'eslint-plugin-unicorn';
+import unicornPlugin from "eslint-plugin-unicorn";
 
 export default tseslint.config(
   {
@@ -21,7 +21,7 @@ export default tseslint.config(
     ],
     plugins: {
       jasmine: jasminePlugin,
-      tsdoc: tsdocPlugin
+      tsdoc: tsdocPlugin,
     },
     languageOptions: {
       ecmaVersion: "latest",
@@ -44,16 +44,16 @@ export default tseslint.config(
         {
           type: "attribute",
           prefix: "app",
-          style: "camelCase"
-        }
+          style: "camelCase",
+        },
       ],
       "@angular-eslint/component-selector": [
         "error",
         {
           type: "element",
           prefix: "app",
-          style: "kebab-case"
-        }
+          style: "kebab-case",
+        },
       ],
       "@angular-eslint/no-attribute-decorator": "error",
       "@angular-eslint/no-forward-ref": "error",
@@ -68,8 +68,8 @@ export default tseslint.config(
         "error",
         {
           selector: "variable",
-          format: ["camelCase", "UPPER_CASE"]
-        }
+          format: ["camelCase", "UPPER_CASE"],
+        },
       ],
       "@typescript-eslint/array-type": ["error", { default: "array-simple" }],
       "@typescript-eslint/member-ordering": [
@@ -83,8 +83,8 @@ export default tseslint.config(
             "decorated-method",
             "private-method",
             "public-method",
-          ]
-        }
+          ],
+        },
       ],
       "@typescript-eslint/await-thenable": "error",
       "@typescript-eslint/ban-ts-comment": "error",
@@ -93,9 +93,9 @@ export default tseslint.config(
       "@typescript-eslint/no-extraneous-class": [
         "error",
         {
-          "allowEmpty": true,
-          "allowStaticOnly": true
-        }
+          allowEmpty: true,
+          allowStaticOnly: true,
+        },
       ],
       "@typescript-eslint/explicit-function-return-type": "error",
       "@typescript-eslint/no-for-in-array": "error",
@@ -117,21 +117,21 @@ export default tseslint.config(
           caughtErrorsIgnorePattern: "^_",
           destructuredArrayIgnorePattern: "^_",
           varsIgnorePattern: "^_",
-          ignoreRestSiblings: true
-        }
+          ignoreRestSiblings: true,
+        },
       ],
 
       "block-spacing": ["error", "always"],
       "brace-style": ["error", "1tbs"],
       "comma-dangle": ["error", "always-multiline"],
-      "complexity": ["error", { max: 20 }],
-      "curly": "error",
+      complexity: ["error", { max: 20 }],
+      curly: "error",
       "eol-last": ["error", "always"],
-      "indent": ["error", 2],
+      indent: ["error", 2],
       "max-lines": ["error", 400],
       "max-len": ["error", { code: 140, ignoreComments: true }],
       "multiline-ternary": ["error", "always-multiline"],
-      "no-console": ["error", { "allow": ["warn", "error"] }],
+      "no-console": ["error", { allow: ["warn", "error"] }],
       "no-debugger": "error",
       "no-duplicate-case": "error",
       "no-duplicate-imports": "error",
@@ -160,66 +160,75 @@ export default tseslint.config(
         {
           blankLine: "always",
           prev: "*",
-          next: "return"
+          next: "return",
         },
         {
           blankLine: "always",
           prev: "case",
-          next: "case"
+          next: "case",
         },
         {
           blankLine: "always",
           prev: "const",
-          next: "*"
+          next: "*",
         },
         {
           blankLine: "any",
           prev: "const",
-          next: "const"
+          next: "const",
         },
         {
           blankLine: "always",
           prev: "*",
-          next: "let"
+          next: "let",
         },
         {
           blankLine: "any",
           prev: "let",
-          next: "let"
+          next: "let",
         },
         {
           blankLine: "always",
           prev: "block",
-          next: "*"
-        }
+          next: "*",
+        },
       ],
       "prefer-arrow-callback": "error",
       "prefer-object-spread": "error",
       "prefer-template": "error",
-      "quotes": ["error", "single"],
+      quotes: ["error", "single"],
       "require-await": "off",
-      "semi": ["error", "always"],
+      semi: ["error", "always"],
       "space-before-blocks": "error",
       "space-in-parens": ["error", "never"],
       "spaced-comment": ["error", "always"],
-      "yoda": "error",
+      yoda: "error",
 
       "tsdoc/syntax": "warn",
 
       "import/namespace": ["error"],
       "import/no-duplicates": ["error"],
+
+      "unicorn/prevent-abbreviations": [
+        "error",
+        {
+          allowList: {
+            util: true,
+          },
+        },
+      ],
     },
     settings: {
       "import/parsers": {
-        "@typescript-eslint/parser": [".ts", ".tsx"]
+        "@typescript-eslint/parser": [".ts", ".tsx"],
       },
       "import/resolver": {
         typescript: {
           alwaysTryTypes: true,
-          project: "tsconfig.json"
-        }
-      }
-    }
+          project: "tsconfig.json",
+        },
+      },
+    },
   },
   {
     files: ["**/*.html"],
