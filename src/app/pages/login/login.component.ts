@@ -47,11 +47,6 @@ export class LoginComponent {
       },
       validators: [
         {
-          name: 'required',
-          validator: Validators.required,
-          message: 'Senha obrigatória',
-        },
-        {
           name: 'minlength',
           validator: Validators.minLength(8),
           message: 'A senha precisa ter no mínimo 8 caracteres.',
@@ -64,8 +59,6 @@ export class LoginComponent {
       ],
       config: {
         type: 'password',
-        maxLength: 20,
-        minLength: 8,
       },
     },
   ];
