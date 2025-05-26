@@ -31,7 +31,7 @@ export class LoginComponent {
         {
           name: 'email',
           validator: Validators.email,
-          message: 'MC Pipoquinha',
+          message: 'Digite um email válido',
         },
       ],
       config: {

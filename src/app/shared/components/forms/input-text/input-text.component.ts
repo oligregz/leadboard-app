@@ -7,9 +7,8 @@ import { InputErrorMessageComponent } from '../input-error-message/input-error-m
 
 @Component({
   selector: 'app-input-text',
-  imports: [ReactiveFormsModule, InputErrorMessageComponent],
+  imports: [InputErrorMessageComponent, ReactiveFormsModule],
   templateUrl: './input-text.component.html',
   styleUrl: './input-text.component.scss',
 })
 export class InputTextComponent extends InputCommonDirective {}
-
