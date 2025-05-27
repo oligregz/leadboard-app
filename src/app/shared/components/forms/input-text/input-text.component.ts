@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -8,7 +7,7 @@ import { InputErrorMessageComponent } from '../input-error-message/input-error-m
 
 @Component({
   selector: 'app-input-text',
-  imports: [InputErrorMessageComponent, ReactiveFormsModule, CommonModule],
+  imports: [InputErrorMessageComponent, ReactiveFormsModule],
   templateUrl: './input-text.component.html',
   styleUrl: './input-text.component.scss',
 })

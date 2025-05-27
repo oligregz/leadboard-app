@@ -7,7 +7,7 @@
     [id]="inputConfig().inputCommon.id"
     [type]="inputConfig().config.type"
     [formControl]="control()"
-    [ngClass]="{ 'hasValue': control().value }"
+    [class.hasValue]="control().value"
   />
   <label [for]="inputConfig().inputCommon.id" class="form-control-placeholder">
     {{ inputConfig().inputCommon.hint }}
