@@ -5,11 +5,13 @@
 
   <div class="position-relative">
     <input
-      class="form-control"
-      [id]="inputConfig().inputCommon.id"
-      [type]="type()"
-      [formControl]="control()"
-    />
+    class="form-control"
+    [id]="inputConfig().inputCommon.id"
+    [type]="inputConfig().config.type"
+    [formControl]="control()"
+    [maxlength]="inputConfig().config.maxLength ?? null"
+    [minlength]="inputConfig().config.minLength ?? null"
+  />
 
     @if (inputConfig().config.type === 'password') {
     <button
