@@ -19,8 +19,8 @@ export interface InputCommonModel {
 export interface InputTextModel {
   type: 'text' | 'password' | 'number';
   upperCase?: boolean;
-  maxLenght?: number | string;
-  minLenght?: number | string;
+  maxLength?: number | string;
+  minLength?: number | string;
 }
 
 export interface ValidatorModel {

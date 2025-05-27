@@ -1,5 +1,5 @@
 <div class="mt-2 form-control-error-box">
   @if (control().errors && control().touched) {
-    {{ control().errors | errorMessage: validators() : prioritize() }}
+  {{ control().errors | errorMessage : validators() : prioritize() }}
   }
 </div>
