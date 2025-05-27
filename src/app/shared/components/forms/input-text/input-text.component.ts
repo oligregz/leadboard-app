@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { InputCommonDirective } from '../input-common.directive';
 import { InputErrorMessageComponent } from '../input-error-message/input-error-message.component';
-
 
 @Component({
   selector: 'app-input-text',
@@ -11,4 +10,18 @@ import { InputErrorMessageComponent } from '../input-error-message/input-error-m
   templateUrl: './input-text.component.html',
   styleUrl: './input-text.component.scss',
 })
-export class InputTextComponent extends InputCommonDirective {}
+export class InputTextComponent extends InputCommonDirective {
+
+  isDisabled = input<boolean>(false);
+
+  constructor() {
+    super();
+    effect(() => {
+      if (this.isDisabled()) {
+        this.control().disable();
+      } else {
+        this.control().enable();
+      }
+    });
+  }
+}
