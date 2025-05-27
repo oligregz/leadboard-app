@@ -14,6 +14,7 @@ export interface InputCommonModel {
   label: string;
   hint: string;
   groupName?: string;
+  disabled?: boolean;
 }
 
 export interface InputTextModel {

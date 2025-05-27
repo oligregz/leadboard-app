@@ -7,6 +7,7 @@
     [id]="inputConfig().inputCommon.id"
     [type]="inputConfig().config.type"
     [formControl]="control()"
+    [disabled]="control().disabled"
   />
   <label [for]="inputConfig().inputCommon.id" class="form-control-placeholder">
     {{ inputConfig().inputCommon.hint }}
