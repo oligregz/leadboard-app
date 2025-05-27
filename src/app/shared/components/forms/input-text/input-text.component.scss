@@ -1,0 +1,11 @@
+@use '../../../../../sass/variables/color';
+
+.eye-toggle-icon {
+  color: color.$black;
+ 
+  &:hover,
+  &:focus,
+  &:active {
+    color: color.$black;
+  }
+}
