@@ -7,7 +7,6 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { InputCommonDirective } from '../input-common.directive';
 import { InputErrorMessageComponent } from '../input-error-message/input-error-message.component';
 
-
 @Component({
   selector: 'app-input-text',
   imports: [ReactiveFormsModule, InputErrorMessageComponent, FontAwesomeModule],

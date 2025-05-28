@@ -7,8 +7,9 @@
     <input
     class="form-control"
     [id]="inputConfig().inputCommon.id"
-    [type]="inputConfig().config.type"
+    [type]="type()"
     [formControl]="control()"
+    [disabled]="control().disabled"
     [maxlength]="inputConfig().config.maxLength ?? null"
     [minlength]="inputConfig().config.minLength ?? null"
   />
