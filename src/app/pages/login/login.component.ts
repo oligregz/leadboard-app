@@ -45,6 +45,18 @@ export class LoginComponent {
         label: 'Senha',
         hint: '',
       },
+      validators: [
+        {
+          name: 'minlength',
+          validator: Validators.minLength(8),
+          message: 'A senha precisa ter no mínimo 8 caracteres.',
+        },
+        {
+          name: 'maxlength',
+          validator: Validators.maxLength(20),
+          message: 'A senha precisa ter no máximo 20 caracteres.',
+        },
+      ],
       config: {
         type: 'password',
       },
@@ -58,11 +70,16 @@ export class LoginComponent {
     }),
     password: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(20),
+      ],
     }),
   });
 
   public submit(): void {
     console.log(this.loginForm.controls.email.value);
+    console.log(this.loginForm.controls.password.value);
   }
 }

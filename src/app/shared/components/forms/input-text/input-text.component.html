@@ -2,13 +2,34 @@
   <div>
     {{ inputConfig().inputCommon.label }}
   </div>
-  <input
+
+  <div class="position-relative">
+    <input
     class="form-control"
     [id]="inputConfig().inputCommon.id"
-    [type]="inputConfig().config.type"
+    [type]="type()"
     [formControl]="control()"
     [disabled]="control().disabled"
+    [maxlength]="inputConfig().config.maxLength ?? null"
+    [minlength]="inputConfig().config.minLength ?? null"
   />
+
+    @if (inputConfig().config.type === 'password') {
+    <button
+      class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0 bg-transparent pb-1"
+      type="button"
+      (click)="togglePasswordVisibility()"
+    >
+      <fa-icon
+        [icon]="type() === 'password' ? faEye : faEyeSlash"
+        class="eye-toggle-icon"
+        draggable="false"
+      >
+      </fa-icon>
+    </button>
+    }
+  </div>
+
   <label [for]="inputConfig().inputCommon.id" class="form-control-placeholder">
     {{ inputConfig().inputCommon.hint }}
   </label>
