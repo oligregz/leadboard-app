@@ -19,6 +19,12 @@ export const routes: Routes = [
         loadComponent: async () =>
           import('./pages/login/login.component').then((c) => c.LoginComponent),
       },
+      {
+        path: 'signin',
+        title: 'Cadastro',
+        loadComponent: async () =>
+          import('./pages/signup/signup.component').then((c) => c.SignupComponent),
+      },
     ],
   },
 ];
