@@ -225,7 +225,7 @@ export default tseslint.config(
       "import/resolver": {
         typescript: {
           alwaysTryTypes: true,
-          project: "tsconfig.json",
+          project: "./tsconfig.json",
         },
       },
     },

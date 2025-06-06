@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { InputConfigModel } from '@core/models';
+import { LoginModel } from '@core/models/login.model';
+import { LoginService } from '@core/services/auth.service';
 import { InputTextComponent } from '@shared/components/forms/input-text/input-text.component';
 
 
@@ -18,6 +20,7 @@ interface LoginForm {
 })
 export class LoginComponent {
   private readonly formBuilder = inject(NonNullableFormBuilder);
+  private readonly authService = inject(LoginService);
 
   public readonly inputConfigs: InputConfigModel[] = [
     {
@@ -79,7 +82,19 @@ export class LoginComponent {
   });
 
   public submit(): void {
-    console.log(this.loginForm.controls.email.value);
-    console.log(this.loginForm.controls.password.value);
+    if (this.loginForm.valid) {
+      const login: LoginModel = this.loginForm.getRawValue();
+
+      this.authService.signup(login).subscribe({
+        next: (response) => {
+          console.log('Login realizado:', response);
+        },
+        error: (error) => {
+          console.error('Erro ao fazer login:', error);
+        },
+      });
+    } else {
+      this.loginForm.markAllAsTouched();
+    }
   }
 }
