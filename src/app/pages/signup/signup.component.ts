@@ -3,6 +3,7 @@ import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 
 import { InputConfigModel } from '@core/models';
 import { UserModel } from '@core/models/user.model';
+import { UserService } from '@core/services/user.service';
 import { InputTextComponent } from '@shared/components/forms/input-text/input-text.component';
 
 
@@ -22,6 +23,7 @@ export interface SignupForm {
 })
 export class SignupComponent {
   private readonly formBuilder = inject(NonNullableFormBuilder);
+  private readonly signupService = inject(UserService);
 
   public readonly inputConfigs: InputConfigModel[] = [
     {
@@ -153,7 +155,15 @@ export class SignupComponent {
   public submit(): void {
     if (this.signupForm.valid) {
       const user: UserModel = this.signupForm.getRawValue();
-      console.log('Cadastro de usuário:', user);
+
+      this.signupService.signup(user).subscribe({
+        next: (response) => {
+          console.log('Usuário cadastrado com sucesso:', response);
+        },
+        error: (error) => {
+          console.error('Erro ao cadastrar usuário:', error);
+        },
+      });
     } else {
       this.signupForm.markAllAsTouched();
     }
