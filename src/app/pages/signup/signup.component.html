@@ -1,0 +1,33 @@
+<div class="d-flex flex-column align-items-center">
+  <div class="signup-container">
+    <h1>Sign Up</h1>
+    <form [formGroup]="signupForm" (ngSubmit)="submit()">
+      <app-input-text
+        [inputConfig]="inputConfigs[0]"
+        [control]="signupForm.controls.name"
+      ></app-input-text>
+
+      <app-input-text
+        [inputConfig]="inputConfigs[1]"
+        [control]="signupForm.controls.email"
+      ></app-input-text>
+
+      <app-input-text
+        [inputConfig]="inputConfigs[2]"
+        [control]="signupForm.controls.password"
+      ></app-input-text>
+
+      <app-input-text
+        [inputConfig]="inputConfigs[3]"
+        [control]="signupForm.controls.telefone"
+      ></app-input-text>
+
+      <app-input-text
+        [inputConfig]="inputConfigs[4]"
+        [control]="signupForm.controls.nomeUsuario"
+      ></app-input-text>
+
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+</div>
