@@ -10,20 +10,21 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'login',
+    path: '',
     component: UnloggedComponent,
     children: [
       {
-        path: '',
+        path: 'login',
         title: 'Login',
         loadComponent: async () =>
           import('./pages/login/login.component').then((c) => c.LoginComponent),
       },
       {
-        path: 'signin',
-        title: 'Cadastro',
+        path: 'signup',
+        title: 'Signup',
         loadComponent: async () =>
-          import('./pages/signup/signup.component').then((c) => c.SignupComponent),
+          import('./pages/signup/signup.component').then(
+            (c) => c.SignupComponent),
       },
     ],
   },
