@@ -157,9 +157,6 @@ export class SignupComponent {
       const user: UserModel = this.signupForm.getRawValue();
 
       this.signupService.signup(user).subscribe({
-        next: (response) => {
-          console.log('Usuário cadastrado com sucesso:', response);
-        },
         error: (error) => {
           console.error('Erro ao cadastrar usuário:', error);
         },
