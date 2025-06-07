@@ -86,9 +86,6 @@ export class LoginComponent {
       const login: LoginModel = this.loginForm.getRawValue();
 
       this.authService.signup(login).subscribe({
-        next: (response) => {
-          console.log('Login realizado:', response);
-        },
         error: (error) => {
           console.error('Erro ao fazer login:', error);
         },
