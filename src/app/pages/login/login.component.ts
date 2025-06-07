@@ -4,6 +4,7 @@ import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 import { InputConfigModel } from '@core/models';
 import { LoginModel } from '@core/models/login.model';
 import { LoginService } from '@core/services/auth.service';
+import { getLocalStorageKeyValuye, setLocalStorageKeyValue } from '@pages/utils/manageLocalStorage.util';
 import { InputTextComponent } from '@shared/components/forms/input-text/input-text.component';
 
 
@@ -86,6 +87,10 @@ export class LoginComponent {
       const login: LoginModel = this.loginForm.getRawValue();
 
       this.authService.signup(login).subscribe({
+        next: (response) => {
+          setLocalStorageKeyValue("access_token", response.access_token!);
+          console.log(getLocalStorageKeyValuye("access_token"))
+        },
         error: (error) => {
           console.error('Erro ao fazer login:', error);
         },
