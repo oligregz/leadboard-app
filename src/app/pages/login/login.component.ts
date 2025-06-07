@@ -89,7 +89,6 @@ export class LoginComponent {
       this.authService.signup(login).subscribe({
         next: (response) => {
           setLocalStorageKeyValue("access_token", response.access_token!);
-          console.log(getLocalStorageKeyValuye("access_token"))
         },
         error: (error) => {
           console.error('Erro ao fazer login:', error);
