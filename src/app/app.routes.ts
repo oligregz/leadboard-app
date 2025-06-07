@@ -26,6 +26,13 @@ export const routes: Routes = [
           import('./pages/signup/signup.component').then(
             (c) => c.SignupComponent),
       },
+      {
+        path: 'ranking',
+        title: 'Ranking',
+        loadComponent: async () =>
+          import('./pages/ranking/ranking.component').then(
+            (c) => c.RankingComponent),
+      },
     ],
   },
 ];
