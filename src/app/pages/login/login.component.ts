@@ -90,8 +90,10 @@ export class LoginComponent {
 
       this.authService.signup(login).subscribe({
         next: (response) => {
-          setLocalStorageKeyValue('access_token', response.access_token!);
-          this.router.navigate(['/ranking']);
+          if (response.access_token) {
+            setLocalStorageKeyValue('access_token', response.access_token);
+            this.router.navigate(['/ranking']);
+          }
         },
         error: (error) => {
           console.error('Erro ao fazer login:', error);
