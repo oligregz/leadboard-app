@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { InputConfigModel } from '@core/models';
 import { UserModel } from '@core/models/user.model';
@@ -24,6 +25,7 @@ export interface SignupForm {
 export class SignupComponent {
   private readonly formBuilder = inject(NonNullableFormBuilder);
   private readonly signupService = inject(UserService);
+  private readonly router = inject(Router);
 
   public readonly inputConfigs: InputConfigModel[] = [
     {
@@ -157,6 +159,9 @@ export class SignupComponent {
       const user: UserModel = this.signupForm.getRawValue();
 
       this.signupService.signup(user).subscribe({
+        next: () => {
+          this.router.navigate(['/login']);
+        },
         error: (error) => {
           console.error('Erro ao cadastrar usuário:', error);
         },
