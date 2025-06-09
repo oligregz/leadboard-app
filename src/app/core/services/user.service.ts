@@ -17,4 +17,8 @@ export class UserService {
   signup(user: UserModel): Observable<UserModel> {
     return this.http.post<UserModel>(`${this.apiUrl}/signup`, user);
   }
+
+  list(): Observable<UserModel[]> {
+    return this.http.get<UserModel[]>(`${this.apiUrl}`);
+  }
 }
