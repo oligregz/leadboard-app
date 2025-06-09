@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { InputConfigModel } from '@core/models';
 import { LoginModel } from '@core/models/login.model';
 import { LoginService } from '@core/services/auth.service';
-import { getLocalStorageKeyValuye, setLocalStorageKeyValue } from '@pages/utils/manageLocalStorage.util';
+import { setLocalStorageKeyValue } from '@pages/utils/manage-local-storage.util';
 import { InputTextComponent } from '@shared/components/forms/input-text/input-text.component';
 
 
@@ -22,6 +23,7 @@ interface LoginForm {
 export class LoginComponent {
   private readonly formBuilder = inject(NonNullableFormBuilder);
   private readonly authService = inject(LoginService);
+  private readonly router = inject(Router);
 
   public readonly inputConfigs: InputConfigModel[] = [
     {
@@ -88,7 +90,8 @@ export class LoginComponent {
 
       this.authService.signup(login).subscribe({
         next: (response) => {
-          setLocalStorageKeyValue("access_token", response.access_token!);
+          setLocalStorageKeyValue('access_token', response.access_token!);
+          this.router.navigate(['/ranking']);
         },
         error: (error) => {
           console.error('Erro ao fazer login:', error);
