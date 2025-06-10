@@ -14,7 +14,7 @@ export class UserService {
 
   constructor(private readonly http: HttpClient) {}
 
-  signup(user: UserModel): Observable<UserModel> {
-    return this.http.post<UserModel>(`${this.apiUrl}/signup`, user);
+  signup(data: UserModel | FormData): Observable<UserModel> {
+    return this.http.post<UserModel>(`${this.apiUrl}/signup`, data);
   }
 }

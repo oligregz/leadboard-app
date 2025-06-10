@@ -27,6 +27,8 @@ export class SignupComponent {
   private readonly signupService = inject(UserService);
   private readonly router = inject(Router);
 
+  public selectedFile?: File;
+
   public readonly inputConfigs: InputConfigModel[] = [
     {
       type: 'text',
@@ -154,11 +156,28 @@ export class SignupComponent {
     }),
   });
 
+  public onFileSelected(event: Event): void {
+    const target = event.target as HTMLInputElement;
+
+    if (target.files && target.files.length > 0) {
+      this.selectedFile = target.files[0];
+    }
+  }
+
   public submit(): void {
     if (this.signupForm.valid) {
       const user: UserModel = this.signupForm.getRawValue();
+      const formData = new FormData();
 
-      this.signupService.signup(user).subscribe({
+      for (const key of Object.keys(user) as Array<keyof UserModel>) {
+        formData.append(key, user[key]);
+      }
+
+      if (this.selectedFile) {
+        formData.append('profileImage', this.selectedFile);
+      }
+
+      this.signupService.signup(formData).subscribe({
         next: () => {
           this.router.navigate(['/login']);
         },
