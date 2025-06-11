@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { UserService } from '@core/services/user.service';
 import { Router } from '@angular/router';
+import { TopThreeComponent } from 'src/app/top-three/top-three.component';
 
 @Component({
   selector: 'app-ranking',
   standalone: true,
-  imports: [],
+  imports: [TopThreeComponent],
   templateUrl: './ranking.component.html',
   styleUrl: './ranking.component.scss',
 })
