@@ -1,26 +1,26 @@
 <div class="d-top-three">
-	<div class="d-top-two-user">
-		<img id="i-top-two"src="cat-rick.png" alt="cat">
-		<p id="p-position">2</p>
-		<p id="p-user">Gato Suspeito</p>
-		<p id="p-points">2000</p>
-		<p id="p-user-name">username</p>
-	</div>
+  <div class="d-top-two-user">
+    <img id="i-top-two" [src]="users()[1].avatar" alt="user avatar">
+    <p id="p-position">2</p>
+    <p id="p-user">{{ users()[1].name }}</p>
+    <p id="p-points">{{ users()[1].points }}</p>
+    <p id="p-user-name">{{ users()[1].username }}</p>
+  </div>
 
-	<div class="d-top-one-user">
-		<img id="i-crown" src="crown.png" alt="crown">
-		<img id="i-top-one"src="cat-rick.png" alt="cat">
-		<p id="p-position">1</p>
-		<p id="p-user">Gato Suspeito</p>
-		<p id="p-points">5000</p>
-		<p id="p-user-name">username</p>
-	</div>
+  <div class="d-top-one-user">
+    <img id="i-crown" src="crown.png" alt="crown">
+    <img id="i-top-one" [src]="users()[0].avatar" alt="user avatar">
+    <p id="p-position">1</p>
+    <p id="p-user">{{ users()[0].name }}</p>
+    <p id="p-points">{{ users()[0].points }}</p>
+    <p id="p-user-name">{{ users()[0].username }}</p>
+  </div>
 
-	<div class="d-top-three-user">
-		<img id="i-top-three"src="cat-rick.png" alt="cat">
-		<p id="p-position">3</p>
-		<p id="p-user">Gato Suspeito</p>
-		<p id="p-points">1000</p>
-		<p id="p-user-name">username</p>
-	</div>
+  <div class="d-top-three-user">
+    <img id="i-top-three" [src]="users()[2].avatar" alt="user avatar">
+    <p id="p-position">3</p>
+    <p id="p-user">{{ users()[2].name }}</p>
+    <p id="p-points">{{ users()[2].points }}</p>
+    <p id="p-user-name">{{ users()[2].username }}</p>
+  </div>
 </div>
