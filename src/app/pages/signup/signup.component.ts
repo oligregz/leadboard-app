@@ -13,7 +13,7 @@ export interface SignupForm {
   email: FormControl<string>;
   password: FormControl<string>;
   telefone: FormControl<string>;
-  nomeUsuario: FormControl<string>;
+  username: FormControl<string>;
 }
 
 @Component({
@@ -112,7 +112,7 @@ export class SignupComponent {
     {
       type: 'text',
       inputCommon: {
-        id: 'nomeUsuario',
+        id: 'username',
         label: 'Nome de usuário',
         hint: 'Escolha um nome de usuário',
       },
@@ -150,11 +150,31 @@ export class SignupComponent {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    nomeUsuario: new FormControl('', {
+    username: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
   });
+
+  private createFormData(user: UserModel): FormData {
+    const formData = new FormData();
+
+    // Adiciona todos os campos do usuário
+    for (const key of Object.keys(user)) {
+      const value = user[key as keyof UserModel];
+
+      if (value !== undefined && value !== null) {
+        formData.append(key, value.toString());
+      }
+    }
+
+    // Adiciona a imagem de perfil se existir
+    if (this.selectedFile) {
+      formData.append('profileImage', this.selectedFile);
+    }
+
+    return formData;
+  }
 
   public onFileSelected(event: Event): void {
     const target = event.target as HTMLInputElement;
@@ -167,23 +187,13 @@ export class SignupComponent {
   public submit(): void {
     if (this.signupForm.valid) {
       const user: UserModel = this.signupForm.getRawValue();
-      const formData = new FormData();
-
-      for (const key of Object.keys(user) as Array<keyof UserModel>) {
-        formData.append(key, user[key]);
-      }
-
-      if (this.selectedFile) {
-        formData.append('profileImage', this.selectedFile);
-      }
+      const formData = this.createFormData(user);
 
       this.signupService.signup(formData).subscribe({
         next: () => {
           this.router.navigate(['/login']);
         },
-        error: (error) => {
-          console.error('Erro ao cadastrar usuário:', error);
-        },
+        error: (error) => console.error('Erro detalhado:', error.error.message),
       });
     } else {
       this.signupForm.markAllAsTouched();
