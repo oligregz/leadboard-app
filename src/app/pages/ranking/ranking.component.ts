@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { UserService } from '@core/services/user.service';
 import { Router } from '@angular/router';
 import { TopThreeComponent } from 'src/app/top-three/top-three.component';
@@ -11,10 +11,14 @@ import { UserModel } from '@core/models/user.model';
   templateUrl: './ranking.component.html',
   styleUrl: './ranking.component.scss',
 })
-export class RankingComponent {
+export class RankingComponent implements OnInit {
   private readonly userService = inject(UserService);
   private readonly router = inject(Router);
   rankingUsers = signal<UserModel[]>([]);
+
+  ngOnInit(): void {
+    this.listUsers();
+  }
 
   listUsers(): void {
     this.userService.list().subscribe({
