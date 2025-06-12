@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { UserService } from '@core/services/user.service';
 import { Router } from '@angular/router';
 import { TopThreeComponent } from 'src/app/top-three/top-three.component';
+import { UserModel } from '@core/models/user.model';
 
 @Component({
   selector: 'app-ranking',
@@ -13,11 +14,12 @@ import { TopThreeComponent } from 'src/app/top-three/top-three.component';
 export class RankingComponent {
   private readonly userService = inject(UserService);
   private readonly router = inject(Router);
+  rankingUsers = signal<UserModel[]>([]);
 
   listUsers(): void {
     this.userService.list().subscribe({
       next: (users) => {
-        console.log(users);
+        this.rankingUsers.set(users);
       },
       error: (error) => {
         if (error.status === 401) {
