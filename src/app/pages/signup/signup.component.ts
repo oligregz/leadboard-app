@@ -1,19 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { InputConfigModel } from '@core/models';
-import { UserModel } from '@core/models/user.model';
 import { UserService } from '@core/services/user.service';
 import { InputTextComponent } from '@shared/components/forms/input-text/input-text.component';
-
 
 export interface SignupForm {
   name: FormControl<string>;
   email: FormControl<string>;
   password: FormControl<string>;
   telefone: FormControl<string>;
-  nomeUsuario: FormControl<string>;
+  username: FormControl<string>;
 }
 
 @Component({
@@ -112,7 +109,7 @@ export class SignupComponent {
     {
       type: 'text',
       inputCommon: {
-        id: 'nomeUsuario',
+        id: 'username',
         label: 'Nome de usuário',
         hint: 'Escolha um nome de usuário',
       },
@@ -150,7 +147,7 @@ export class SignupComponent {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    nomeUsuario: new FormControl('', {
+    username: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
@@ -166,16 +163,17 @@ export class SignupComponent {
 
   public submit(): void {
     if (this.signupForm.valid) {
-      const user: UserModel = this.signupForm.getRawValue();
       const formData = new FormData();
-
-      for (const key of Object.keys(user) as Array<keyof UserModel>) {
-        formData.append(key, user[key]);
+      const formValue = this.signupForm.getRawValue();
+      
+      for (const [key, value] of Object.entries(formValue)) {
+        formData.append(key, value);
       }
 
       if (this.selectedFile) {
-        formData.append('profileImage', this.selectedFile);
+        formData.append('avatar', this.selectedFile);
       }
+      formData.append('points', '0');
 
       this.signupService.signup(formData).subscribe({
         next: () => {
