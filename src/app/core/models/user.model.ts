@@ -3,5 +3,7 @@ export interface UserModel {
   email: string;
   password: string;
   telefone: string;
+  avatar?: string;
+  points?: number;
   username: string;
 }

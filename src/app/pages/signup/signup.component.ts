@@ -1,12 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { InputConfigModel } from '@core/models';
 import { UserModel } from '@core/models/user.model';
 import { UserService } from '@core/services/user.service';
 import { InputTextComponent } from '@shared/components/forms/input-text/input-text.component';
-
 
 export interface SignupForm {
   name: FormControl<string>;
@@ -159,7 +157,6 @@ export class SignupComponent {
   private createFormData(user: UserModel): FormData {
     const formData = new FormData();
 
-    // Adiciona todos os campos do usuário
     for (const key of Object.keys(user)) {
       const value = user[key as keyof UserModel];
 
@@ -168,7 +165,6 @@ export class SignupComponent {
       }
     }
 
-    // Adiciona a imagem de perfil se existir
     if (this.selectedFile) {
       formData.append('profileImage', this.selectedFile);
     }
