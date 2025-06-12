@@ -1,0 +1,60 @@
+.d-user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+
+.d-user-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.d-user-position {
+  min-width: 24px;
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+}
+
+.d-user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #009BD6;
+}
+
+.d-user-info {
+  flex: 1;
+  
+  p {
+    margin: 2px 0;
+  }
+}
+
+.d-user-name {
+  font-size: 16px;
+  color: #fff;
+}
+
+.d-user-username {
+  font-size: 14px;
+  color: #B7B3B3;
+}
+
+.d-user-points {
+  font-size: 14px;
+  color: #009BD6;
+  font-weight: bold;
+}
+
+.d-loading {
+  text-align: center;
+  padding: 24px;
+  color: #B7B3B3;
+}

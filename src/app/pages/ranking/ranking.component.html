@@ -1,4 +1,8 @@
 <div class="d-ranking-components">
-	<app-top-three [users]="rankingUsers()" />
-	<!-- <button (click)="listUsers()">Buscar Usuários</button> -->
+  <app-top-three [users]="rankingUsers()" />
+  <h4>Demais Participantes</h4>
+  </div>
+<div class="d-user-list">
+  <app-list-users [users]="otherUsers()" />
 </div>
+
