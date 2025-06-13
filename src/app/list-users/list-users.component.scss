@@ -1,7 +1,12 @@
+.current-user {
+  border: 2px solid #00C853 !important;
+  background: rgba(0, 200, 83, 0.1);
+}
+
 .d-user-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 2px;
   padding: 16px;
 }
 
@@ -10,8 +15,8 @@
   align-items: center;
   gap: 16px;
   padding: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
+  border-top: 0.5px groove #fff;
+  position: relative;
 }
 
 .d-user-position {
@@ -22,19 +27,25 @@
 }
 
 .d-user-avatar {
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #009BD6;
+  border: 2px solid #009bd6;
+  align-self: flex-start;
 }
 
 .d-user-info {
   flex: 1;
-  
-  p {
-    margin: 2px 0;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 60px;
+}
+
+p {
+  margin: 2px 0;
+  line-height: 1.2;
 }
 
 .d-user-name {
@@ -44,17 +55,44 @@
 
 .d-user-username {
   font-size: 14px;
-  color: #B7B3B3;
+  color: #b7b3b3;
 }
 
 .d-user-points {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 14px;
-  color: #009BD6;
+  color: #fff;
   font-weight: bold;
+  padding-left: 16px;
+  text-align: right;
 }
 
 .d-loading {
   text-align: center;
   padding: 24px;
-  color: #B7B3B3;
+  color: #b7b3b3;
+}
+
+@media (max-width: 600px) {
+  .d-user-card {
+    gap: 12px;
+    padding: 8px 12px;
+  }
+
+  .d-user-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .d-user-name {
+    font-size: 14px;
+  }
+
+  .d-user-username,
+  .d-user-points {
+    font-size: 12px;
+  }
 }
