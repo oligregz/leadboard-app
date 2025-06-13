@@ -21,4 +21,9 @@ export class UserService {
   list(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(`${this.apiUrl}`);
   }
+  listAllExceptTopThree(): Observable<UserModel[]> {
+    return this.http.get<UserModel[]>(
+      `${this.apiUrl}/ranking/all-except-top-three`,
+    );
+  }
 }

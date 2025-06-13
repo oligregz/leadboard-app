@@ -1,0 +1,32 @@
+@if (users().length > 0) {
+<div class="d-user-list">
+  @for (user of users(); track trackByIndex($index); let i = $index) {
+  <div class="d-user-card">
+    <div class="d-user-position">
+      <p>{{ i + 4 }}</p>
+    </div>
+    <img
+      class="d-user-avatar"
+      [src]="user.avatar || 'assets/default-user.png'"
+      [alt]="user.name"
+    />
+    <div class="d-user-info">
+      <p class="d-user-name">{{ user.name }}</p>
+      <p class="d-user-username">
+        {{
+          "@" +
+            (user.username.length > 8
+              ? user.username.substring(0, 8) + "..."
+              : user.username)
+        }}
+      </p>
+      <p class="d-user-points">{{ user.points || 0 }} pts</p>
+    </div>
+  </div>
+  }
+</div>
+} @else {
+<div class="d-loading">
+  <p>Nenhum usuário encontrado</p>
+</div>
+}
