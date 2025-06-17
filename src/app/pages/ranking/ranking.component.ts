@@ -1,20 +1,36 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
-import { UserService } from '@core/services/user.service';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { TopThreeComponent } from 'src/app/top-three/top-three.component';
+
 import { UserModel } from '@core/models/user.model';
+import { UserService } from '@core/services/user.service';
+
+import { TopThreeComponent } from 'src/app/top-three/top-three.component';
+
+import { ListUsersComponent } from '../../list-users/list-users.component';
+
 
 @Component({
   selector: 'app-ranking',
   standalone: true,
-  imports: [TopThreeComponent],
+  imports: [TopThreeComponent, ListUsersComponent],
   templateUrl: './ranking.component.html',
   styleUrl: './ranking.component.scss',
 })
 export class RankingComponent implements OnInit {
   private readonly userService = inject(UserService);
   private readonly router = inject(Router);
+
   rankingUsers = signal<UserModel[]>([]);
+
+  loggedUserEmail = signal('');
+
+  otherUsers = computed(() => this.rankingUsers().slice(3));
+
+  constructor() {
+    const email = globalThis.localStorage.getItem('logged_user_email') ?? '';
+
+    this.loggedUserEmail.set(email);
+  }
 
   ngOnInit(): void {
     this.listUsers();
@@ -23,7 +39,11 @@ export class RankingComponent implements OnInit {
   listUsers(): void {
     this.userService.list().subscribe({
       next: (users) => {
-        this.rankingUsers.set(users);
+        const sortedUsers = [...users].sort(
+          (a, b) => (b.points || 0) - (a.points || 0),
+        );
+
+        this.rankingUsers.set(sortedUsers);
       },
       error: (error) => {
         if (error.status === 401) {

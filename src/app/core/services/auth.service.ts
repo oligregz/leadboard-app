@@ -14,7 +14,7 @@ export class LoginService {
 
   constructor(private readonly http: HttpClient) {}
 
-  signup(user: LoginModel): Observable<LoginModel> {
+  login(user: LoginModel): Observable<LoginModel> {
     return this.http.post<LoginModel>(`${this.apiUrl}/login`, user);
   }
 }
