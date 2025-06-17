@@ -1,6 +1,10 @@
 <header>
-  <img src="leaderboard-logo.png" alt="Leaderboard rank" />
-  <div>
+  <div class="header-content">
+    <img src="leaderboard-logo.png" alt="Leaderboard rank" />
     <h1>Leaderboard</h1>
   </div>
+
+  @if (showLogoutButton) {
+    <button class="d-button" type="button" (click)="onLogout()">Logout</button>
+  }
 </header>
