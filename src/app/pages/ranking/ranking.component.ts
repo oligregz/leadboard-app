@@ -22,7 +22,15 @@ export class RankingComponent implements OnInit {
 
   rankingUsers = signal<UserModel[]>([]);
 
+  loggedUserEmail = signal('');
+
   otherUsers = computed(() => this.rankingUsers().slice(3));
+
+  constructor() {
+    const email = globalThis.localStorage.getItem('logged_user_email') ?? '';
+
+    this.loggedUserEmail.set(email);
+  }
 
   ngOnInit(): void {
     this.listUsers();

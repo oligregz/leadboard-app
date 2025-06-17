@@ -1,9 +1,21 @@
-@if (users().length > 0) {
+@if (visibleUsers.length > 0) {
 <div class="d-user-list">
-  @for (user of users(); track trackByIndex($index); let i = $index) {
-  <div class="d-user-card">
+  @for (user of visibleUsers; track trackByIndex($index); let i = $index) { @if
+  (i === 2 && shouldShowEllipsis) {
+  <div class="d-user-card d-user-ellipsis">
+    <p>...</p>
+  </div>
+  }
+  <div
+    class="d-user-card"
+    [ngClass]="{ 'current-user': user.email === loggedUserEmail() }"
+  >
     <div class="d-user-position">
-      <p>{{ i + 4 }}</p>
+      <p>
+        @if (user.email === loggedUserEmail()) { ⭐ }
+
+        {{ getLoggedUserPosition(user) }}
+      </p>
     </div>
     <img
       class="d-user-avatar"
@@ -11,7 +23,9 @@
       [alt]="user.name"
     />
     <div class="d-user-info">
-      <p class="d-user-name">{{ user.name }}</p>
+      <p class="d-user-name">
+        {{ user.name }}
+      </p>
       <p class="d-user-username">
         {{
           "@" +
@@ -20,8 +34,12 @@
               : user.username)
         }}
       </p>
-      <p class="d-user-points">{{ user.points || 0 }} pts</p>
+      <p class="d-user-points">{{ user.points || 0 }} pontos</p>
     </div>
+  </div>
+  } @if (!showFullRanking()) {
+  <div class="d-button">
+    <button class="show-all" (click)="showFullRanking.set(true)">Ver ranking completo</button>
   </div>
   }
 </div>

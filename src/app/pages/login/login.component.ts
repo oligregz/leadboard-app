@@ -88,10 +88,11 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const login: LoginModel = this.loginForm.getRawValue();
 
-      this.authService.signup(login).subscribe({
+      this.authService.login(login).subscribe({
         next: (response) => {
           if (response.access_token) {
             setLocalStorageKeyValue('access_token', response.access_token);
+            setLocalStorageKeyValue('logged_user_email', login.email);
             this.router.navigate(['/ranking']);
           }
         },
