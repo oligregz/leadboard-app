@@ -33,10 +33,12 @@
   <label [for]="inputConfig().inputCommon.id" class="form-control-placeholder">
     {{ inputConfig().inputCommon.hint }}
   </label>
+
+  <app-input-error-message
+    [control]="control()"
+    [validators]="inputConfig().validators"
+    [prioritize]="inputConfig().prioritize"
+  ></app-input-error-message>
 </div>
 
-<app-input-error-message
-  [control]="control()"
-  [validators]="inputConfig().validators"
-  [prioritize]="inputConfig().prioritize"
-></app-input-error-message>
+

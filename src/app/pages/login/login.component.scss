@@ -1,4 +1,45 @@
 .login-container {
-  height: 400px;
-  margin-top: 160px;
+  width: 300px;
+  height: 300px;
+  margin-top: 100px;
+}
+
+.login-container h1,
+.login-container button {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+button {
+  width: 100px;
+  background-color: #1049c4;
+  color: white;
+  border: #0d3a9c;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #4713d5;
+  }
+}
+
+::ng-deep app-input-text {
+  display: block;
+  margin-bottom: 20px;
+
+  .form-control-placeholder {
+    margin: 0 0 0 5px;
+    font-style: italic;
+    font-size: 13px;
+    color: #857cff;
+  }
+}
+
+::ng-deep app-input-error-message {
+  color: #d32f2f;
+  font-size: 13px;
 }
