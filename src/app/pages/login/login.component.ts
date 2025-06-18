@@ -104,4 +104,8 @@ export class LoginComponent {
       this.loginForm.markAllAsTouched();
     }
   }
+
+  public redirectToSignup(): void {
+    this.router.navigate(['/signup']);
+  }
 }

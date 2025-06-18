@@ -12,7 +12,16 @@
         [control]="loginForm.controls.password"
       ></app-input-text>
 
-      <button type="submit">Login</button>
+      <button id="b-login" type="submit">Login</button>
+      <span 
+        class="signup-link" 
+        tabindex="0" 
+        role="button"
+        (click)="redirectToSignup()"
+        (keydown.enter)="redirectToSignup()"
+        (keydown.space)="redirectToSignup()">
+        Signup
+      </span>
     </form>
   </div>
 </div>

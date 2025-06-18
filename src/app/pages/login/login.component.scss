@@ -5,13 +5,13 @@
 }
 
 .login-container h1,
-.login-container button {
+.login-container #b-login {
   display: block;
   margin: 0 auto;
   text-align: center;
 }
 
-button {
+#b-login {
   width: 100px;
   background-color: #1049c4;
   color: white;
@@ -42,4 +42,24 @@ button {
 ::ng-deep app-input-error-message {
   color: #d32f2f;
   font-size: 13px;
+}
+
+.signup-link {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  color: #1049c4;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #4713d5;
+  }
+
+  &:focus {
+    outline: none;
+    text-decoration: none;
+  }
 }
