@@ -27,6 +27,11 @@ button {
   }
 }
 
+.error-message{
+  color: #d32f2f;
+  margin-bottom: 20px;
+}
+
 ::ng-deep app-input-text {
   display: block;
   margin-bottom: 20px;

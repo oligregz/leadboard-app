@@ -84,8 +84,11 @@ export class LoginComponent {
     }),
   });
 
+  public errorMessage?: string;
+
   public submit(): void {
     if (this.loginForm.valid) {
+      this.errorMessage = undefined;
       const login: LoginModel = this.loginForm.getRawValue();
 
       this.authService.login(login).subscribe({
@@ -97,7 +100,12 @@ export class LoginComponent {
           }
         },
         error: (error) => {
-          console.error('Erro ao fazer login:', error);
+          this.errorMessage =
+            error?.error?.message ?? 'Erro inesperado ao fazer login';
+          this.loginForm.controls.password.setErrors({ auth: 'Email ou senha incorretos' });
+          this.loginForm.controls.password.markAsTouched();
+          this.loginForm.controls.email.setErrors({ auth: 'Email ou senha incorretos' });
+          this.loginForm.controls.email.markAsTouched();
         },
       });
     } else {

@@ -10,17 +10,20 @@ import { validationMsgs } from '@core/utils/string.utility';
   standalone: true,
 })
 export class ErrorMessagePipe implements PipeTransform {
-
   transform(
     errors: ValidationErrors | null,
     validators: ValidatorModel[] | undefined,
-    prioritize: string[] | undefined): string | undefined {
-
-    const errorKeys = Object.keys(errors || {});
-
-    if (errorKeys.length === 0) {
+    prioritize: string[] | undefined,
+  ): string | undefined {
+    if (!errors || Object.keys(errors).length === 0) {
       return undefined;
     }
+
+    if (errors['auth']) {
+      return errors['auth'];
+    }
+
+    const errorKeys = Object.keys(errors);
 
     let bestPriority = -1;
     let bestError = '';
@@ -35,7 +38,9 @@ export class ErrorMessagePipe implements PipeTransform {
     }
 
     if (validators) {
-      const validador = validators.find(validator => validator.name === bestError);
+      const validador = validators.find(
+        (validator) => validator.name === bestError,
+      );
 
       if (validador && validador.message) {
         return validador.message;
@@ -54,5 +59,4 @@ export class ErrorMessagePipe implements PipeTransform {
 
     return prioritize.length - index;
   }
-
 }
