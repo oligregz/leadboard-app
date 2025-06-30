@@ -19,6 +19,7 @@ import { ListUsersComponent } from '../../list-users/list-users.component';
 export class RankingComponent implements OnInit {
   private readonly userService = inject(UserService);
   private readonly router = inject(Router);
+  private readonly isActive = true;
 
   rankingUsers = signal<UserModel[]>([]);
 
@@ -33,11 +34,11 @@ export class RankingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listUsers();
+    this.listUsers(this.isActive);
   }
 
-  listUsers(): void {
-    this.userService.list().subscribe({
+  listUsers(isActive: boolean): void {
+    this.userService.list(isActive).subscribe({
       next: (users) => {
         const sortedUsers = [...users].sort(
           (a, b) => (b.points || 0) - (a.points || 0),
