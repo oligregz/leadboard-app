@@ -1,0 +1,12 @@
+<div class="gameboard">
+  <img src="tokinho.png" alt="tokinho" class="tokinho" #tokinho />
+  <img src="bug.png" alt="bug" class="bug" #bug />
+
+  @if (pontosFinal() > 0) {
+  <div class="game-over-overlay">
+    <img src="game-over.png" alt="Game Over" class="game-over" />
+    <button class="restart-btn" (click)="restart()">Jogar Novamente</button>
+  </div>
+  }
+</div>
+<p>Pontos: {{ pontos() }}</p>

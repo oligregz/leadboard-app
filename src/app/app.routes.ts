@@ -33,6 +33,16 @@ export const routes: Routes = [
           import('./pages/ranking/ranking.component').then(
             (c) => c.RankingComponent),
       },
+      {
+        path: 'game',
+        title: 'Game',
+        loadComponent: async () =>
+          import('./shared/components/game/game.component').then(
+            (c) => c.GameComponent).catch((error) => {
+            console.error('Erro ao carregar Gamecomponent:', error);
+            throw error;
+          }),
+      },
     ],
   },
 ];
