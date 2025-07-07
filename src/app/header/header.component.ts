@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.checkLogoutVisibility(this.router.url);
 
     this.routerEventsSub = this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.checkLogoutVisibility(event.urlAfterRedirects);
       });
@@ -31,9 +31,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   checkLogoutVisibility(url: string): void {
     const isRankingPage = url.includes('ranking');
+    const isGamePage = url.includes('game');
     const hasAccessToken = getLocalStorageKeyValue('access_token') !== null;
 
-    this.showLogoutButton = isRankingPage && hasAccessToken;
+    this.showLogoutButton = isRankingPage || isGamePage && hasAccessToken;
   }
 
   onLogout(): void {

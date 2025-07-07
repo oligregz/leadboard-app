@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, inject, OnDestroy, signal, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { UserService } from '@core/services/user.service';
 import { getUserIdFromToken } from '@pages/utils/manage-local-storage.util';
@@ -16,17 +17,24 @@ export class GameComponent implements AfterViewInit, OnDestroy {
   @ViewChild('bug') bugRef!: ElementRef<HTMLImageElement>;
 
   private readonly userService = inject(UserService);
+  private readonly router = inject(Router);
+
   private loopId?: ReturnType<typeof setInterval>;
   private contId?: ReturnType<typeof setInterval>;
 
   points = signal(0);
   pointsFinal = signal(0);
-
-  restart(): void {
-    globalThis.location.reload();
-  }
+  isGameStarted = signal(false);
 
   ngAfterViewInit(): void {
+    this.bugRef.nativeElement.style.animationPlayState = 'paused';
+  }
+
+  startGame(): void {
+    this.isGameStarted.set(true);
+
+    this.bugRef.nativeElement.style.animationPlayState = 'running';
+
     globalThis.document.addEventListener('keydown', this.jump);
 
     this.loopId = globalThis.setInterval(() => this.checkCollision(), 10);
@@ -51,7 +59,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     const bugPosition = bug.offsetLeft;
     const tokinhoBottom = Number.parseInt(
       globalThis.getComputedStyle(tokinho).bottom.replace('px', ''),
-      10, 
+      10,
     );
 
     if (bugPosition <= 100 && bugPosition > 0 && tokinhoBottom < 80) {
@@ -69,7 +77,9 @@ export class GameComponent implements AfterViewInit, OnDestroy {
       const userId = getUserIdFromToken();
 
       if (userId === undefined) {
-        console.warn('Usuário não logado, não foi possível atualizar os pontos.');
+        console.warn(
+          'Usuário não logado, não foi possível atualizar os pontos.'
+        );
       } else {
         this.userService.updatePoints(finalScore).subscribe({
           next: (user) => {
@@ -81,6 +91,14 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         });
       }
     }
+  }
+
+  goToRanking(): void {
+    this.router.navigate(['/ranking']);
+  }
+
+  restart(): void {
+    globalThis.location.reload();
   }
 
   ngOnDestroy(): void {
