@@ -1,4 +1,7 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnDestroy, signal, ViewChild } from '@angular/core';
+
+import { UserService } from '@core/services/user.service';
+import { getUserIdFromToken } from '@pages/utils/manage-local-storage.util';
 
 
 @Component({
@@ -12,11 +15,12 @@ export class GameComponent implements AfterViewInit, OnDestroy {
   @ViewChild('tokinho') tokinhoRef!: ElementRef<HTMLImageElement>;
   @ViewChild('bug') bugRef!: ElementRef<HTMLImageElement>;
 
+  private readonly userService = inject(UserService);
   private loopId?: ReturnType<typeof setInterval>;
-  private contadorId?: ReturnType<typeof setInterval>;
+  private contId?: ReturnType<typeof setInterval>;
 
-  pontos = signal(0);
-  pontosFinal = signal(0);
+  points = signal(0);
+  pointsFinal = signal(0);
 
   restart(): void {
     globalThis.location.reload();
@@ -26,8 +30,8 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     globalThis.document.addEventListener('keydown', this.jump);
 
     this.loopId = globalThis.setInterval(() => this.checkCollision(), 10);
-    this.contadorId = globalThis.setInterval(() => {
-      this.pontos.set(this.pontos() + 1);
+    this.contId = globalThis.setInterval(() => {
+      this.points.set(this.points() + 1);
     }, 100);
   }
 
@@ -47,7 +51,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     const bugPosition = bug.offsetLeft;
     const tokinhoBottom = Number.parseInt(
       globalThis.getComputedStyle(tokinho).bottom.replace('px', ''),
-      10,
+      10, 
     );
 
     if (bugPosition <= 100 && bugPosition > 0 && tokinhoBottom < 80) {
@@ -55,16 +59,33 @@ export class GameComponent implements AfterViewInit, OnDestroy {
       bug.style.left = `${bugPosition}px`;
 
       clearInterval(this.loopId);
-      clearInterval(this.contadorId);
+      clearInterval(this.contId);
       globalThis.document.removeEventListener('keydown', this.jump);
 
-      this.pontosFinal.set(this.pontos());
+      const finalScore = this.points();
+
+      this.pointsFinal.set(finalScore);
+
+      const userId = getUserIdFromToken();
+
+      if (userId === undefined) {
+        console.warn('Usuário não logado, não foi possível atualizar os pontos.');
+      } else {
+        this.userService.updatePoints(finalScore).subscribe({
+          next: (user) => {
+            console.log('Pontos atualizados com sucesso', user.points);
+          },
+          error: (error) => {
+            console.error('Erro ao atualizar os pontos', error);
+          },
+        });
+      }
     }
   }
 
   ngOnDestroy(): void {
     clearInterval(this.loopId);
-    clearInterval(this.contadorId);
+    clearInterval(this.contId);
     globalThis.document.removeEventListener('keydown', this.jump);
   }
 }

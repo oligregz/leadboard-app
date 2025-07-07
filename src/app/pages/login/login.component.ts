@@ -95,6 +95,7 @@ export class LoginComponent {
         next: (response) => {
           if (response.access_token) {
             setLocalStorageKeyValue('access_token', response.access_token);
+            console.log('Salvou token:', response.access_token);
             setLocalStorageKeyValue('logged_user_email', login.email);
             this.router.navigate(['/ranking']);
           }

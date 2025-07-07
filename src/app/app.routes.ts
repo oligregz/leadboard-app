@@ -38,10 +38,7 @@ export const routes: Routes = [
         title: 'Game',
         loadComponent: async () =>
           import('./shared/components/game/game.component').then(
-            (c) => c.GameComponent).catch((error) => {
-            console.error('Erro ao carregar Gamecomponent:', error);
-            throw error;
-          }),
+            (c) => c.GameComponent),
       },
     ],
   },

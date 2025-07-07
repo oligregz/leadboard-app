@@ -10,7 +10,7 @@ import { UserModel } from '@core/models/user.model';
   providedIn: 'root',
 })
 export class UserService {
-  private readonly apiUrl = 'http://localhost:3000/user?isActive=';
+  private readonly apiUrl = 'http://localhost:3000/user';
 
   constructor(private readonly http: HttpClient) {}
 
@@ -19,12 +19,18 @@ export class UserService {
   }
 
   list(isActive: boolean): Observable<UserModel[]> {
-    return this.http.get<UserModel[]>(`${this.apiUrl}${isActive}`);
+    return this.http.get<UserModel[]>(`${this.apiUrl}?isActive=${isActive}`);
   }
 
   listAllExceptTopThree(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(
       `${this.apiUrl}/ranking/all-except-top-three`,
     );
+  }
+
+  updatePoints(points: number): Observable<UserModel> {
+    return this.http.patch<UserModel>(`${this.apiUrl}/points`, {
+      points,
+    });
   }
 }

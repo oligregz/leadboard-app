@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+
 import { filter, Subscription } from 'rxjs';
-import {
-  getLocalStorageKeyValuye,
-  removeLocalStorageKeyValuye,
-} from '@pages/utils/manage-local-storage.util';
+
+import { getLocalStorageKeyValue, removeLocalStorageKeyValue } from '@pages/utils/manage-local-storage.util';
+
 
 @Component({
   selector: 'app-header',
@@ -31,14 +31,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   checkLogoutVisibility(url: string): void {
     const isRankingPage = url.includes('ranking');
-    const hasAccessToken = getLocalStorageKeyValuye('access_token') !== null;
+    const hasAccessToken = getLocalStorageKeyValue('access_token') !== null;
 
     this.showLogoutButton = isRankingPage && hasAccessToken;
   }
 
   onLogout(): void {
-    removeLocalStorageKeyValuye('access_token');
-    removeLocalStorageKeyValuye('logged_user_email');
+    removeLocalStorageKeyValue('access_token');
+    removeLocalStorageKeyValue('logged_user_email');
     this.router.navigate(['/login']);
   }
 
