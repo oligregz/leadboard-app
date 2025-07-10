@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -7,7 +7,7 @@ import { LoginModel } from '@core/models/login.model';
 import { LoginService } from '@core/services/auth.service';
 import { setLocalStorageKeyValue } from '@pages/utils/manage-local-storage.util';
 import { InputTextComponent } from '@shared/components/forms/input-text/input-text.component';
-
+import { GenericDialogComponent } from '@shared/components/generic-dialog/generic-dialog.component';
 
 interface LoginForm {
   email: FormControl<string>;
@@ -16,7 +16,8 @@ interface LoginForm {
 
 @Component({
   selector: 'app-login',
-  imports: [InputTextComponent, ReactiveFormsModule],
+  standalone: true,
+  imports: [InputTextComponent, ReactiveFormsModule, GenericDialogComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -24,6 +25,11 @@ export class LoginComponent {
   private readonly formBuilder = inject(NonNullableFormBuilder);
   private readonly authService = inject(LoginService);
   private readonly router = inject(Router);
+
+  // Signals para controlar o dialog
+  showDialog = signal(false);
+  dialogTitle = signal('');
+  dialogContent = signal('');
 
   public readonly inputConfigs: InputConfigModel[] = [
     {
@@ -84,11 +90,8 @@ export class LoginComponent {
     }),
   });
 
-  public errorMessage?: string;
-
   public submit(): void {
     if (this.loginForm.valid) {
-      this.errorMessage = undefined;
       const login: LoginModel = this.loginForm.getRawValue();
 
       this.authService.login(login).subscribe({
@@ -100,8 +103,14 @@ export class LoginComponent {
           }
         },
         error: (error) => {
-          this.errorMessage =
-            error?.error?.message ?? 'Erro inesperado ao fazer login';
+          // Aqui trabalho com exceção de usuário não verificado do back
+          if (error?.error?.statusCode === 403) {
+            this.dialogTitle.set('Erro no Login');
+            this.dialogContent.set(error?.error?.message ?? 'Erro inesperado ao fazer login');
+            this.showDialog.set(true);
+            return;
+          }
+          
           this.loginForm.controls.password.setErrors({ auth: 'Email ou senha incorretos' });
           this.loginForm.controls.password.markAsTouched();
           this.loginForm.controls.email.setErrors({ auth: 'Email ou senha incorretos' });
@@ -110,10 +119,17 @@ export class LoginComponent {
       });
     } else {
       this.loginForm.markAllAsTouched();
+      // this.dialogTitle.set('Formulário Inválido');
+      // this.dialogContent.set('Por favor, preencha todos os campos corretamente.');
+      // this.showDialog.set(true);
     }
   }
 
   public redirectToSignup(): void {
     this.router.navigate(['/signup']);
+  }
+
+  onDialogClose() {
+    this.showDialog.set(false);
   }
 }
