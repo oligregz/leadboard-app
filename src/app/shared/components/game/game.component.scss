@@ -1,3 +1,6 @@
+@use "../../../../sass/variables/color" as *;
+@use "../../../../sass/style.scss" as *;
+
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +10,7 @@
 .gameboard {
   width: 70%;
   height: 400px;
-  border-bottom: 15px solid black;
+  border-bottom: 15px solid $black;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
@@ -16,9 +19,25 @@
 .bug {
   position: absolute;
   bottom: 0;
+  left: 100%;
   width: 60px;
   animation: bug-animation 2s infinite linear;
   animation-play-state: paused;
+
+   &.variant-0 {
+    content: url('../../../../../public/bug.png');
+  }
+
+  &.variant-1 {
+    content: url('../../../../../public/bug2.png');
+    width: 60px;
+    height: 80px;
+  }
+
+  &.variant-2 {
+    content: url('../../../../../public/bug-tall.png');
+    width: 120px;
+  }
 }
 
 .tokinho {
@@ -57,24 +76,24 @@
     border-radius: 8px;
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.3s ease;
-    color: black;
+    color: $black;
     font-weight: bold;
   }
 
   .start-btn {
-    background-color: #ffaa00;
+    background-color: $yellow;
 
     &:hover {
-      background-color: darken(#ffaa00, 10%);
+      background-color: darken($yellow, 10%);
       transform: scale(1.05);
     }
   }
 
   .ranking-btn {
-    background-color: #009bd6;
+    background-color: $blue;
 
     &:hover {
-      background-color: darken(#009bd6, 10%);
+      background-color: darken($blue, 10%);
       transform: scale(1.05);
     }
   }
@@ -83,15 +102,16 @@
 .restart-btn {
   padding: 10px 20px;
   font-size: 1rem;
-  background-color: black;
-  color: white;
+  font-family: "Press Start 2P", system-ui;
+  background-color: $black;
+  color: $white;
   border: none;
   cursor: pointer;
   border-radius: 6px;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #333;
+    background-color: $secondary;
   }
 }
 
@@ -99,13 +119,23 @@
   animation: jump 800ms ease-out;
 }
 
+.score {
+  display: flex;
+  justify-content: right;
+  margin: 2rem;
+
+  p {
+    font-family: "Press Start 2P", system-ui;
+  }
+}
+
 @keyframes bug-animation {
   from {
-    right: -80px;
+    left: 100%;
   }
 
   to {
-    right: 100%;
+    left: -80px;
   }
 }
 

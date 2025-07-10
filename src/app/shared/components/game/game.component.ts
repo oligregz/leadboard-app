@@ -21,26 +21,54 @@ export class GameComponent implements AfterViewInit, OnDestroy {
 
   private loopId?: ReturnType<typeof setInterval>;
   private contId?: ReturnType<typeof setInterval>;
+  private speedIncreaseId?: ReturnType<typeof setInterval>;
+  private imageSwapId?: ReturnType<typeof setInterval>;
+
+  private animationDuration = 2000; // Começa com 2s
+  private readonly bugImages = ['bug.png', 'bug2.png', 'bug-tall.png'];
+  private currentBugImageIndex = 0;
 
   points = signal(0);
   pointsFinal = signal(0);
   isGameStarted = signal(false);
 
   ngAfterViewInit(): void {
+    // Inicializa com animação pausada
     this.bugRef.nativeElement.style.animationPlayState = 'paused';
   }
 
   startGame(): void {
     this.isGameStarted.set(true);
+    const bug = this.bugRef.nativeElement;
 
-    this.bugRef.nativeElement.style.animationPlayState = 'running';
+    // Ativa animação
+    bug.style.animationPlayState = 'running';
 
+    // Adiciona controles
     globalThis.document.addEventListener('keydown', this.jump);
 
     this.loopId = globalThis.setInterval(() => this.checkCollision(), 10);
+
     this.contId = globalThis.setInterval(() => {
       this.points.set(this.points() + 1);
     }, 100);
+
+    // Aumenta velocidade a cada 2s
+    this.speedIncreaseId = globalThis.setInterval(() => {
+      this.animationDuration = Math.max(400, this.animationDuration - 100); // mínimo 400ms
+      bug.style.animationDuration = `${this.animationDuration}ms`;
+    }, 2000);
+
+    // Troca a imagem do bug a cada 2s
+    this.imageSwapId = globalThis.setInterval(() => {
+      const bug = this.bugRef.nativeElement;
+
+      this.currentBugImageIndex = (this.currentBugImageIndex + 1) % 3;
+
+      bug.classList.remove('variant-0', 'variant-1', 'variant-2');
+      bug.classList.add(`variant-${this.currentBugImageIndex}`);
+    }, 2000);
+
   }
 
   jump = (): void => {
@@ -63,11 +91,11 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     );
 
     if (bugPosition <= 100 && bugPosition > 0 && tokinhoBottom < 80) {
-      bug.style.animation = 'none';
+      // Colisão
+      bug.style.animationPlayState = 'paused';
       bug.style.left = `${bugPosition}px`;
 
-      clearInterval(this.loopId);
-      clearInterval(this.contId);
+      this.clearIntervals();
       globalThis.document.removeEventListener('keydown', this.jump);
 
       const finalScore = this.points();
@@ -78,7 +106,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
 
       if (userId === undefined) {
         console.warn(
-          'Usuário não logado, não foi possível atualizar os pontos.'
+          'Usuário não logado, não foi possível atualizar os pontos.',
         );
       } else {
         this.userService.updatePoints(finalScore).subscribe({
@@ -93,17 +121,23 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  goToRanking(): void {
-    this.router.navigate(['/ranking']);
-  }
-
   restart(): void {
     globalThis.location.reload();
   }
 
+  goToRanking(): void {
+    this.router.navigate(['/ranking']);
+  }
+
   ngOnDestroy(): void {
+    this.clearIntervals();
+    globalThis.document.removeEventListener('keydown', this.jump);
+  }
+
+  clearIntervals(): void {
     clearInterval(this.loopId);
     clearInterval(this.contId);
-    globalThis.document.removeEventListener('keydown', this.jump);
+    clearInterval(this.speedIncreaseId);
+    clearInterval(this.imageSwapId);
   }
 }

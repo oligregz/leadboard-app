@@ -1,13 +1,16 @@
+@use "../../sass/style.scss" as *;
+@use "../../sass/variables/color" as *;
+
 header {
   display: flex;
-  justify-content: center; /* Centraliza o conteúdo */
+  justify-content: center;
   align-items: center;
-  position: relative; /* Necessário para posicionar o botão */
+  position: relative;
   width: 90%;
   max-width: 50rem;
   margin: 0 auto 1rem auto;
   text-align: center;
-  background: linear-gradient(to bottom, #2c0a4c, #3e0c73);
+  background: linear-gradient(to bottom, $dark-purple, $purple);
   padding: 1rem;
   border-bottom-right-radius: 12px;
   border-bottom-left-radius: 12px;
@@ -66,6 +69,6 @@ button > img {
   }
 
   .d-button {
-    right: 2rem; /* Um pouco mais afastado em telas maiores */
+    right: 2rem;
   }
 }
