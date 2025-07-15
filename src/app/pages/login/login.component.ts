@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { InputConfigModel } from '@core/models';
 import { LoginModel } from '@core/models/login.model';
-import { LoginService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth.service';
 import { setLocalStorageKeyValue } from '@pages/utils/manage-local-storage.util';
 import { InputTextComponent } from '@shared/components/forms/input-text/input-text.component';
 import { GenericDialogComponent } from '@shared/components/generic-dialog/generic-dialog.component';
@@ -23,7 +23,7 @@ interface LoginForm {
 })
 export class LoginComponent {
   private readonly formBuilder = inject(NonNullableFormBuilder);
-  private readonly authService = inject(LoginService);
+  private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
   showDialog = signal(false);
@@ -102,6 +102,7 @@ export class LoginComponent {
           }
         },
         error: (error) => {
+          setLocalStorageKeyValue('logged_user_email', login.email);
           if (error?.error?.statusCode === 403) {
             this.dialogTitle.set('Erro no Login');
             this.dialogContent.set(error?.error?.message ?? 'Erro inesperado ao fazer login');
