@@ -1,0 +1,13 @@
+<div class="content">
+	<h3 id="title">Verificação</h3>
+
+	<div class="status">
+
+		@if (!successStatus()) {
+			<p id="status-loading">Aguarde sua verificação está em andamento...</p>
+		} @else {
+			<p id="status-success">Verificação feita com sucesso. Por favor retorne a página de login e realize seu acesso.</p>
+		}
+
+	</div>
+</div>
