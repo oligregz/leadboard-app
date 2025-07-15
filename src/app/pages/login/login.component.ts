@@ -26,7 +26,6 @@ export class LoginComponent {
   private readonly authService = inject(LoginService);
   private readonly router = inject(Router);
 
-  // Signals para controlar o dialog
   showDialog = signal(false);
   dialogTitle = signal('');
   dialogContent = signal('');
@@ -103,14 +102,22 @@ export class LoginComponent {
           }
         },
         error: (error) => {
-          // Aqui trabalho com exceção de usuário não verificado do back
           if (error?.error?.statusCode === 403) {
             this.dialogTitle.set('Erro no Login');
             this.dialogContent.set(error?.error?.message ?? 'Erro inesperado ao fazer login');
             this.showDialog.set(true);
+
             return;
           }
           
+          if (error?.error?.statusCode === 500) {
+            this.dialogTitle.set('Erro no Login');
+            this.dialogContent.set('Erro inesperado ao fazer login. Tente novamente mais tarde.');
+            this.showDialog.set(true);
+
+            return;
+          }
+
           this.loginForm.controls.password.setErrors({ auth: 'Email ou senha incorretos' });
           this.loginForm.controls.password.markAsTouched();
           this.loginForm.controls.email.setErrors({ auth: 'Email ou senha incorretos' });
@@ -119,9 +126,6 @@ export class LoginComponent {
       });
     } else {
       this.loginForm.markAllAsTouched();
-      // this.dialogTitle.set('Formulário Inválido');
-      // this.dialogContent.set('Por favor, preencha todos os campos corretamente.');
-      // this.showDialog.set(true);
     }
   }
 
@@ -129,7 +133,7 @@ export class LoginComponent {
     this.router.navigate(['/signup']);
   }
 
-  onDialogClose() {
+  onDialogClose(): void {
     this.showDialog.set(false);
   }
 }
