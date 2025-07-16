@@ -45,7 +45,6 @@ export class VerificationComponent implements OnInit {
         this.dialogTitle.set('Falha na Verificação');
         this.dialogContent.set('Algo de errado aconteceu. Tente novamente mais tarde.');
         this.showDialog.set(true);
-        console.error(this.dialogContent());
       },
     });
   }
