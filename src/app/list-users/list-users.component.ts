@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
-import { Component, input, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { UserModel } from '@core/models/user.model';
 
@@ -11,6 +12,8 @@ import { UserModel } from '@core/models/user.model';
   styleUrl: './list-users.component.scss',
 })
 export class ListUsersComponent {
+  private readonly router = inject(Router);
+
   users = input.required<UserModel[]>();
   loggedUserEmail = input.required<string>();
 
@@ -58,5 +61,9 @@ export class ListUsersComponent {
 
   getLoggedUserPosition(user: UserModel): number {
     return this.users().indexOf(user) + 4;
+  }
+
+  gotoGame(): void {
+    this.router.navigate(['/game']);
   }
 }

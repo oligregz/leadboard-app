@@ -1,0 +1,20 @@
+<div class="gameboard">
+  <img src="tokinho.png" alt="tokinho" class="tokinho" #tokinho />
+  <img src="bug.png" alt="bug" class="bug" #bug />
+
+  @if (!isGameStarted()) {
+  <div class="action-buttons">
+    <button class="start-btn" (click)="startGame()">Iniciar Jogo</button>
+    <button class="ranking-btn" (click)="goToRanking()">Ver Ranking</button>
+  </div>
+  } @if (pointsFinal() > 0) {
+  <div class="game-over-overlay">
+    <img src="game-over.png" alt="Game Over" class="game-over" />
+    <button class="restart-btn" (click)="restart()">Jogar Novamente</button>
+  </div>
+  }
+
+  <div class="score">
+    <p>Score: {{ points() }}</p>
+  </div>
+</div>

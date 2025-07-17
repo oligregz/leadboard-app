@@ -37,11 +37,15 @@
       <p class="d-user-points">{{ user.points || 0 }} pontos</p>
     </div>
   </div>
-  } @if (!showFullRanking()) {
-  <div class="d-button">
-    <button class="show-all" (click)="showFullRanking.set(true)">Ver ranking completo</button>
-  </div>
   }
+  <div class="d-button" [ngClass]="{ 'single-button': showFullRanking() }">
+    @if (!showFullRanking()) {
+    <button class="show-all" (click)="showFullRanking.set(true)">
+      Ver ranking completo
+    </button>
+    }
+    <button class="game-btn" (click)="gotoGame()">Ir para o jogo</button>
+  </div>
 </div>
 } @else {
 <div class="d-loading">

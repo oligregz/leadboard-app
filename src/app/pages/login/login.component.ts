@@ -98,7 +98,7 @@ export class LoginComponent {
           if (response.access_token) {
             setLocalStorageKeyValue('access_token', response.access_token);
             setLocalStorageKeyValue('logged_user_email', login.email);
-            this.router.navigate(['/ranking']);
+            this.router.navigate(['/game']);
           }
         },
         error: (error) => {

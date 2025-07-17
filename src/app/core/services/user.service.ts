@@ -29,4 +29,10 @@ export class UserService {
       `${this.apiUrl}/ranking/all-except-top-three`,
     );
   }
+
+  updatePoints(points: number): Observable<UserModel> {
+    return this.http.patch<UserModel>(`${this.apiUrl}/user/points`, {
+      points,
+    });
+  }
 }

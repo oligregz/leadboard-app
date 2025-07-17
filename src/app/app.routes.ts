@@ -32,6 +32,13 @@ export const routes: Routes = [
             (c) => c.RankingComponent),
       },
       {
+        path: 'game',
+        title: 'Game',
+        loadComponent: async () =>
+          import('./shared/components/game/game.component').then(
+            (c) => c.GameComponent),
+      },
+      {
         path: 'verification',
         title: 'Verification',
         loadComponent: async () =>
