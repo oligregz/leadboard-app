@@ -10,16 +10,18 @@ import { UserModel } from '@core/models/user.model';
   providedIn: 'root',
 })
 export class UserService {
-  private readonly apiUrl = 'http://localhost:3000/user';
+  private readonly apiUrl = 'http://localhost:3000';
+  private readonly apiUserUrl = 'http://localhost:3000/user?isActive=';
+  private readonly apiUserUrlSignup = 'http://localhost:3000/user/signup';
 
   constructor(private readonly http: HttpClient) {}
 
   signup(formData: FormData): Observable<UserModel> {
-    return this.http.post<UserModel>(`${this.apiUrl}/signup`, formData);
+    return this.http.post<UserModel>(`${this.apiUserUrlSignup}`, formData);
   }
 
   list(isActive: boolean): Observable<UserModel[]> {
-    return this.http.get<UserModel[]>(`${this.apiUrl}?isActive=${isActive}`);
+    return this.http.get<UserModel[]>(`${this.apiUserUrl}${isActive}`);
   }
 
   listAllExceptTopThree(): Observable<UserModel[]> {
@@ -29,7 +31,7 @@ export class UserService {
   }
 
   updatePoints(points: number): Observable<UserModel> {
-    return this.http.patch<UserModel>(`${this.apiUrl}/points`, {
+    return this.http.patch<UserModel>(`${this.apiUrl}/user/points`, {
       points,
     });
   }
