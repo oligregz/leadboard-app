@@ -1,7 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { AuthService } from '../../core/services/auth.service';
-import { getLocalStorageKeyValuye } from '@pages/utils/manage-local-storage.util';
+
+import { getLocalStorageKeyValue } from '@pages/utils/manage-local-storage.util';
 import { GenericDialogComponent } from '@shared/components/generic-dialog/generic-dialog.component';
+
+import { AuthService } from '../../core/services/auth.service';
+
 
 @Component({
   selector: 'app-verification',
@@ -26,7 +29,7 @@ export class VerificationComponent implements OnInit {
   }
 
   verification(): void {
-    const userEmail = getLocalStorageKeyValuye('logged_user_email') || 'user_not_found';
+    const userEmail = getLocalStorageKeyValue('logged_user_email') || 'user_not_found';
     const codeVerify = this.catchCodeVerify();
 
     if (!userEmail || !codeVerify) {
