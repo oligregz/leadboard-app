@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
-
 import { UnloggedComponent } from '@pages/unlogged/unlogged.component';
-
 
 export const routes: Routes = [
   {
@@ -39,6 +37,13 @@ export const routes: Routes = [
         loadComponent: async () =>
           import('./shared/components/game/game.component').then(
             (c) => c.GameComponent),
+      },
+      {
+        path: 'verification',
+        title: 'Verification',
+        loadComponent: async () =>
+          import('./pages/verification/verification.component').then(
+            (c) => c.VerificationComponent),
       },
     ],
   },

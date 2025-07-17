@@ -1,13 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { InputConfigModel } from '@core/models';
 import { LoginModel } from '@core/models/login.model';
-import { LoginService } from '@core/services/auth.service';
+import { AuthService } from '@core/services/auth.service';
 import { setLocalStorageKeyValue } from '@pages/utils/manage-local-storage.util';
 import { InputTextComponent } from '@shared/components/forms/input-text/input-text.component';
-
+import { GenericDialogComponent } from '@shared/components/generic-dialog/generic-dialog.component';
 
 interface LoginForm {
   email: FormControl<string>;
@@ -16,14 +16,19 @@ interface LoginForm {
 
 @Component({
   selector: 'app-login',
-  imports: [InputTextComponent, ReactiveFormsModule],
+  standalone: true,
+  imports: [InputTextComponent, ReactiveFormsModule, GenericDialogComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   private readonly formBuilder = inject(NonNullableFormBuilder);
-  private readonly authService = inject(LoginService);
+  private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+
+  showDialog = signal(false);
+  dialogTitle = signal('');
+  dialogContent = signal('');
 
   public readonly inputConfigs: InputConfigModel[] = [
     {
@@ -84,11 +89,8 @@ export class LoginComponent {
     }),
   });
 
-  public errorMessage?: string;
-
   public submit(): void {
     if (this.loginForm.valid) {
-      this.errorMessage = undefined;
       const login: LoginModel = this.loginForm.getRawValue();
 
       this.authService.login(login).subscribe({
@@ -100,8 +102,23 @@ export class LoginComponent {
           }
         },
         error: (error) => {
-          this.errorMessage =
-            error?.error?.message ?? 'Erro inesperado ao fazer login';
+          setLocalStorageKeyValue('logged_user_email', login.email);
+          if (error?.error?.statusCode === 403) {
+            this.dialogTitle.set('Erro no Login');
+            this.dialogContent.set(error?.error?.message ?? 'Erro inesperado ao fazer login');
+            this.showDialog.set(true);
+
+            return;
+          }
+          
+          if (error?.error?.statusCode === 500) {
+            this.dialogTitle.set('Erro no Login');
+            this.dialogContent.set('Erro inesperado ao fazer login. Tente novamente mais tarde.');
+            this.showDialog.set(true);
+
+            return;
+          }
+
           this.loginForm.controls.password.setErrors({ auth: 'Email ou senha incorretos' });
           this.loginForm.controls.password.markAsTouched();
           this.loginForm.controls.email.setErrors({ auth: 'Email ou senha incorretos' });
@@ -115,5 +132,9 @@ export class LoginComponent {
 
   public redirectToSignup(): void {
     this.router.navigate(['/signup']);
+  }
+
+  onDialogClose(): void {
+    this.showDialog.set(false);
   }
 }
