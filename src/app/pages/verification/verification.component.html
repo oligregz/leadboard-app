@@ -1,0 +1,17 @@
+<div class="content d-flex flex-column align-items-center mt-5">
+  <h4 id="title" class="text-center mb-4">Verificação</h4>
+
+  <div class="status text-center">
+    @if (!successStatus()) {
+			<p id="status-loading" class="mb-0">
+				Aguarde sua verificação está em andamento...
+			</p>
+			<div class="loading-spinner"></div>
+    } @else {
+			<p id="status-success" class="mb-0">
+				Verificação feita com sucesso. Por favor retorne a página de login e
+				realize seu acesso.
+			</p>
+    }
+  </div>
+</div>
